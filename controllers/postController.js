@@ -1,7 +1,7 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment')
 const async = require('async');
-const { MongoClient, ObjectID } = require('mongodb');
+const mongoose = require('mongoose');
 
 exports.get_index = (req, res, next) => {
     res.send('not implemented'); // TODO implement
@@ -33,39 +33,29 @@ exports.read_post = (req, res, next) => {
 };
 
 exports.create_post = (req, res, next) => {
-    const objectId = new ObjectID()
-    const post = new Post({
-        published: true,
-        header: '5-meo DMT',
-        body: 'paediatric applications',
-        user: { objectId },
-        timestamp: Date.now(),
-    }); 
-    //TODO add user somehow and replace post above with post below
-/*     const { published, header, body } = req.body; 
+    const userId = mongoose.Types.ObjectId(req.body.userIdString); //TODO Should read user session
+    const { published, header, body } = req.body;
     const post = new Post({
         published: published,
         header: header,
         body: body,
-        comments: [],
-        user: { objectId },
+        user: userId,
         timestamp: Date.now(),
-    }); */
+    }); 
     post.save((err) => {
-        if (err) {
-          return next(err);
-        }
+        if (err) { return next(err); }
         res.status(200).json({ log: 'post sent' });
-      });
+        });
 };
 
 exports.update_post = async (req, res, next) => {
+    const userId = mongoose.Types.ObjectId(req.body.userIdString); //TODO Should read user session
     const { published, header, body } = req.body; //TODO add user somehow
     const post = await Post.findByIdAndUpdate(req.params.id, {
         published: published,
         header: header,
         body: body,
-        user: { objectId },
+        user: userId,
         timestamp: Date.now(),
     });
     if(!post) { 
