@@ -30,11 +30,11 @@ router.delete('/api/posts/:id', post_controller.delete_post);
 // view one posts comments
 router.get('/api/posts/:postid/comments', comment_controller.read_post_comments);
 // create new comment
-router.post('/api/posts/:postid/comments/:commentid', comment_controller.create_comment);
+router.post('/api/posts/:postid/comments/', comment_controller.create_comment);
 // update comment
 router.put('/api/posts/:postid/comments/:commentid', comment_controller.update_comment);
 // delete comment
-router.delete('/api/posts/:postid/comments/:commentid', comment_controller.update_comment);
+router.delete('/api/posts/:postid/comments/:commentid', comment_controller.delete_comment);
 
 /// users ///
 // view all users
