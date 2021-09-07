@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const post_controller = require('../controllers/postController');
+const user_controller = require('../controllers/userController');
+const comment_controller = require('../controllers/commentController');
 
 /// HOME ///
 // view home page. 
@@ -9,71 +12,41 @@ router.get('/', function(req, res, next) {
 
 /// API HOME ///
 // view home with all posts
-router.get('/api', (req, res) => {
-  res.send('get /api');
-});
+router.get('/api', post_controller.get_index);
 
 /// POSTS ///
 // view all posts
-router.get('/api/posts', (req, res) => {
-  res.send('get /api');
-});
+router.get('/api/posts', post_controller.read_all_posts);
 // view one post
-router.get('/api/posts/:id', (req, res, next) => {
-  res.send('get /api/posts/:id');
-});
+router.get('/api/posts/:id', post_controller.read_post);
 // create new post
-router.post('/api/posts/', (req, res, next) => {
-  res.send('post /api/posts/');
-});
+router.post('/api/posts/', post_controller.create_post);
 // update post
-router.put('/api/posts/:id', (req, res, next) => {
-  res.send('put /api/posts/:id');
-});
+router.put('/api/posts/:id', post_controller.update_post);
 // delete post
-router.delete('/api/posts/:id', (req, res, next) => {
-  res.send('delete /api/posts/:id');
-});
+router.delete('/api/posts/:id', post_controller.delete_post);
 
 /// COMMENTS ///
 // view one posts comments
-router.get('/api/posts/:id/comments', (req, res, next) => {
-  res.send('get /api/posts/:id/comments');
-});
+router.get('/api/posts/:postid/comments', comment_controller.read_post_comments);
 // create new comment
-router.post('/api/posts/_id/comments/_id', (req, res, next) => {
-  res.send('post /api/posts/_id/comments/_id');
-});
-// update post
-router.put('/api/posts/:id', (req, res, next) => {
-  res.send('put /api/posts/:id');
-});
-// delete post
-router.delete('/api/posts/:id', (req, res, next) => {
-  res.send('delete /api/posts/:id');
-});
+router.post('/api/posts/:postid/comments/:commentid', comment_controller.create_comment);
+// update comment
+router.put('/api/posts/:postid', comment_controller.update_comment);
+// delete comment
+router.delete('/api/posts/:postid', comment_controller.update_comment);
 
 /// users ///
 // view all users
-router.get('/api/users', (req, res, next) => {
-  res.send('get /api/users');
-});
+router.get('/api/users', user_controller.read_all_users);
 // view one user
-router.get('/api/users/:id', (req, res, next) => {
-  res.send('get /api/users/:id');
-});
+router.get('/api/users/:id', user_controller.read_user);
 // create new user
-router.post('/api/users', (req, res, next) => {
-  res.send('post /api/users');
-});
+router.post('/api/users', user_controller.create_user);
 // update user
-router.put('/api/users/_id', (req, res, next) => {
-  res.send('put /api/users/_id');
-});
+router.put('/api/users/:id', user_controller.update_user);
 // delete user
-router.delete('/api/users/_id', (req, res, next) => {
-  res.send('delete /api/users/_id');
-});
+router.delete('/api/users/:id', user_controller.delete_user);
 
 
 module.exports = router;
