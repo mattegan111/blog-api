@@ -1,6 +1,7 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
+const passport = require('passport');
 
 exports.read_all_users = (req, res, next) => {
     User.find()
@@ -95,4 +96,14 @@ exports.delete_user = async (req, res, next) => {
     } else {
         res.status(200).json({ log: 'deleted successfully' });
     }
+};
+
+exports.user_sign_in = passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/sign-in'
+});
+
+exports.user_sign_out = (req, res) => {
+    req.logout();
+    res.redirect('/sign-in');
 };
