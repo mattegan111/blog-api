@@ -8,8 +8,8 @@ const bcrypt = require('bcryptjs');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const JWTstrategy = require("passport-jwt").Strategy;
-const ExtractJWT = require("passport-jwt").ExtractJwt;
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 const User = require('./models/user');
 const secrets = require('./secrets');
@@ -20,7 +20,6 @@ passport.use('sign-in', new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
-    session: false
   },
   async (email, password, done) => {
     try {
@@ -89,7 +88,6 @@ passport.use('sign-up', new LocalStrategy(
     catch (err) {
       done(err);
     }
-
   })
 );
 

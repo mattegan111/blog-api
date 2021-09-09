@@ -2,6 +2,7 @@ const async = require('async');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const secrets = require('../secrets');
 
 exports.read_all_users = (req, res, next) => {
