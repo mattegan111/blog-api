@@ -47,6 +47,10 @@ router.post('/api/users', user_controller.create_user);
 router.put('/api/users/:id', user_controller.update_user);
 // delete user
 router.delete('/api/users/:id', user_controller.delete_user);
+// sign in 
+router.post('/api/sign-in', user_controller.user_sign_in);
+// sign out
+router.get('/api/sign-out', user_controller.user_sign_out);
 
 
 module.exports = router;
