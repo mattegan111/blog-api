@@ -48,7 +48,7 @@ exports.create_user = [
             }
         } else {
             console.log('cow');
-            passport.authenticate('sign-up', { session: false }, (err, user, info) => { //TODO try removing info
+            passport.authenticate('sign-up', { session: false }, (err, user) => {
                 console.log('frog');
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {

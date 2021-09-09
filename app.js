@@ -43,7 +43,7 @@ passport.use(
       secretOrKey: secrets.jwtSecret,
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
-    async (token, done) => { //TODO try removing async
+    (token, done) => {
       try {
         return done(null, token.user);
       } catch (error) {
@@ -58,7 +58,7 @@ passport.use('sign-up', new LocalStrategy(
     passwordField: 'password',
     passReqToCallback : true
   },
-  async (req, email, password, done) => { //TODO try removing async
+  (req, email, password, done) => { 
     try {
       User.findOne({ email: email }, (err, user) => {
         if (err) { 
